@@ -1,0 +1,193 @@
+.head {
+    width: 100%;
+    padding: 40px 0;
+    background-color: #0904a0;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+
+/* Grid layout for skeleton boxes */
+.skeleton-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* WRAPPER FOR IMAGE + SKELETON */
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #e0e0e0; /* fallback color */
+}
+
+/* The gray loading boxes */
+.skeleton-box {
+    width: 100%;
+    height: 100%;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Shimmer animation (YouTube-style) */
+.skeleton-box::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 1.8s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* REAL IMAGE (hidden until loaded) */
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;               /* fade-in effect */
+    transition: opacity 0.7s ease, transform 0.4s ease;
+}
+
+/* When image finishes loading */
+.image-container.loaded img {
+    opacity: 1;
+}
+
+.image-container.loaded .skeleton-box {
+    display: none;
+}
+
+/* Hover zoom effect */
+.image-container:hover img {
+    transform: scale(1.07);
+}
+
+/* Keep footer at bottom of page */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.footer {
+    margin-top: auto;
+    text-align: center;
+    background-color: aqua;
+}
+
+/* ------------------------------- */
+/* 🔵 TOP IMAGE UNDER HEADER */
+.top-image-container {
+    position: relative;
+    width: 100%;
+    height: 260px; /* adjust for banner height */
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #e0e0e0;
+}
+
+/* Skeleton for top image */
+.top-image-container .skeleton-box {
+    width: 100%;
+    height: 100%;
+    background: #e0e0e0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Shimmer animation */
+.top-image-container .skeleton-box::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 1.8s infinite;
+}
+
+/* Top image styling */
+.top-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;                 /* fade in */
+    transition: opacity 0.7s ease;
+}
+
+.top-image-container.loaded img {
+    opacity: 1;
+}
+
+.top-image-container.loaded .skeleton-box {
+    display: none;
+}
+
+/* ------------------------------- */
+/* 🔥 FULLSCREEN VIEWER CSS */
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: none;           /* hidden until image clicked */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.fullscreen img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px black;
+    animation: zoomIn 0.3s ease;
+}
+
+/* Zoom animation */
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
